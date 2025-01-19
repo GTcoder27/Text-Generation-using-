@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
+const path = require('path');
 
 app.use(express.json());
 dotenv.config();
@@ -11,6 +12,17 @@ app.use(cors({
     origin: 'http://localhost:5173', 
     credentials: true,              
 }));
+
+const __dirname = path.resolve();
+if (process.env.NODE_ENV === "production"){
+    console.log(process.env.NODE_ENV);
+    app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+    app.get("*", (req, res) => {
+        res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+    });
+}
+
 
 class LangflowClient {
     constructor(baseURL, applicationToken) {
