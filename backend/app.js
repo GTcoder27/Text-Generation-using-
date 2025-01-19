@@ -97,9 +97,9 @@ class LangflowClient {
 }
 
 async function main(inputValue, inputType = 'chat', outputType = 'chat', stream = false) {
-    const flowIdOrName = flowid;
-    const langflowId = langid;
-    const applicationToken = apptoken;
+    const flowIdOrName = process.env.flowid;
+    const langflowId = process.env.langid;
+    const applicationToken = process.env.apptoken;
     const langflowClient = new LangflowClient('https://api.langflow.astra.datastax.com', applicationToken);
 
     try {
