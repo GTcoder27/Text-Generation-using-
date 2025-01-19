@@ -1,13 +1,21 @@
-const express = require('express');
+import express from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import dotenv from 'dotenv';
+import path from 'path';
+import axios from 'axios';
+import fs from 'fs';
+import { IamAuthenticator } from 'ibm-watson/auth';
+import SpeechToTextV1 from 'ibm-watson/speech-to-text/v1';
+
 const app = express();
-const cors = require("cors");
-const cookieParser = require('cookie-parser');
-const dotenv = require('dotenv');
-const path = require('path');
 
 app.use(express.json());
 dotenv.config();
 app.use(cookieParser());
+
+// Your routes and other logic go here
+
 app.use(cors({
     origin: 'http://localhost:5173', 
     credentials: true,              
@@ -175,10 +183,6 @@ app.post('/fetch-caption', async (req, res) => {
 
 
 
-const axios = require('axios');
-const fs = require('fs');
-const { IamAuthenticator } = require('ibm-watson/auth');
-const SpeechToTextV1 = require('ibm-watson/speech-to-text/v1');
 
 
 const apiKey = process.env.IBM_API_KEY;
